@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  PeopleFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Timeout: 10
+      Handler: main
+      Runtime: go1.x
+      Policies:
+        - AWSLambdaExecute
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PeopleTable
+      Events:
+        GetPerson:
+          Type: Api
+          Properties:
+            Path: /people/{id}
+            Method: GET
+        GetPeople:
+          Type: Api
+          Properties:
+            Path: /people
+            Method: GET
+        PutPerson:
+          Type: Api
+          Properties:
+            Path: /people
+            Method: POST
+        DeletePerson:
+          Type: Api
+          Properties:
+            Path: /people/{id}
+            Method: DELETE
+        UpdatePerson:
+          Type: Api
+          Properties:
+            Path: /people/{id}
+            Method: PUT
+    Metadata:
+      BuildMethod: makefile
+
+  PeopleTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: People
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
