@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 
@@ -9,8 +10,17 @@ import (
 
 func clientError(status int) (events.APIGatewayProxyResponse, error) {
 
+	errorString := http.StatusText(status)
+
+	response := ResponseStructure{
+		Data:  nil,
+		Error: &errorString,
+	}
+
+	responseJson, _ := json.Marshal(response)
+
 	return events.APIGatewayProxyResponse{
-		Body:       http.StatusText(status),
+		Body:       string(responseJson),
 		StatusCode: status,
 	}, nil
 }
@@ -18,8 +28,17 @@ func clientError(status int) (events.APIGatewayProxyResponse, error) {
 func serverError(err error) (events.APIGatewayProxyResponse, error) {
 	log.Println(err.Error())
 
+	errorString := http.StatusText(http.StatusInternalServerError)
+
+	response := ResponseStructure{
+		Data:  nil,
+		Error: &errorString,
+	}
+
+	responseJson, _ := json.Marshal(response)
+
 	return events.APIGatewayProxyResponse{
-		Body:       http.StatusText(http.StatusInternalServerError),
+		Body:       string(responseJson),
 		StatusCode: http.StatusInternalServerError,
 	}, nil
 }
