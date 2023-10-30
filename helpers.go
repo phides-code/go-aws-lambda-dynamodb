@@ -13,8 +13,8 @@ func clientError(status int) (events.APIGatewayProxyResponse, error) {
 	errorString := http.StatusText(status)
 
 	response := ResponseStructure{
-		Data:  nil,
-		Error: &errorString,
+		Data:         nil,
+		ErrorMessage: &errorString,
 	}
 
 	responseJson, _ := json.Marshal(response)
@@ -31,8 +31,8 @@ func serverError(err error) (events.APIGatewayProxyResponse, error) {
 	errorString := http.StatusText(http.StatusInternalServerError)
 
 	response := ResponseStructure{
-		Data:  nil,
-		Error: &errorString,
+		Data:         nil,
+		ErrorMessage: &errorString,
 	}
 
 	responseJson, _ := json.Marshal(response)

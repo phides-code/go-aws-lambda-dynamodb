@@ -12,8 +12,8 @@ import (
 )
 
 type ResponseStructure struct {
-	Data  interface{} `json:"data"`
-	Error *string     `json:"error"` // can be string or nil
+	Data         interface{} `json:"data"`
+	ErrorMessage *string     `json:"errorMessage"` // can be string or nil
 }
 
 var validate *validator.Validate = validator.New()
@@ -57,8 +57,8 @@ func processGetPerson(ctx context.Context, id string) (events.APIGatewayProxyRes
 	}
 
 	response := ResponseStructure{
-		Data:  person,
-		Error: nil,
+		Data:         person,
+		ErrorMessage: nil,
 	}
 
 	responseJson, err := json.Marshal(response)
@@ -82,8 +82,8 @@ func processGetPeople(ctx context.Context) (events.APIGatewayProxyResponse, erro
 	}
 
 	response := ResponseStructure{
-		Data:  people,
-		Error: nil,
+		Data:         people,
+		ErrorMessage: nil,
 	}
 
 	responseJson, err := json.Marshal(response)
@@ -120,8 +120,8 @@ func processPost(ctx context.Context, req events.APIGatewayProxyRequest) (events
 	log.Printf("Inserted new person: %+v", person)
 
 	response := ResponseStructure{
-		Data:  person,
-		Error: nil,
+		Data:         person,
+		ErrorMessage: nil,
 	}
 
 	responseJson, err := json.Marshal(response)
@@ -156,8 +156,8 @@ func processDelete(ctx context.Context, req events.APIGatewayProxyRequest) (even
 	}
 
 	response := ResponseStructure{
-		Data:  person,
-		Error: nil,
+		Data:         person,
+		ErrorMessage: nil,
 	}
 
 	responseJson, err := json.Marshal(response)
@@ -203,8 +203,8 @@ func processPut(ctx context.Context, req events.APIGatewayProxyRequest) (events.
 	}
 
 	response := ResponseStructure{
-		Data:  person,
-		Error: nil,
+		Data:         person,
+		ErrorMessage: nil,
 	}
 
 	responseJson, err := json.Marshal(response)
