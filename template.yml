@@ -11,8 +11,8 @@ Resources:
       Cors:
         AllowMethods: "'OPTIONS, POST, GET, PUT, DELETE'"
         AllowHeaders: "'Content-Type'"
-        # AllowOrigin: "'https://main.d2raxozz1helh6.amplifyapp.com'"
-        AllowOrigin: "'http://localhost:3000'"
+        AllowOrigin: "'https://main.d2raxozz1helh6.amplifyapp.com'"
+        # AllowOrigin: "'http://localhost:3000'"
 
   PeopleFunction:
     Type: AWS::Serverless::Function
