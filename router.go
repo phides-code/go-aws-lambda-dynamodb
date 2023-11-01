@@ -19,7 +19,8 @@ type ResponseStructure struct {
 var validate *validator.Validate = validator.New()
 
 var headers = map[string]string{
-	"Access-Control-Allow-Origin":  "http://localhost:3000", // Allow frontend origin
+	// "Access-Control-Allow-Origin":  "https://main.d2raxozz1helh6.amplifyapp.com",
+	"Access-Control-Allow-Origin":  "http://localhost:3000",
 	"Access-Control-Allow-Headers": "Content-Type, Authorization",
 }
 
@@ -44,12 +45,10 @@ func router(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIG
 
 func processOptions() (events.APIGatewayProxyResponse, error) {
 	additionalHeaders := map[string]string{
-		"Access-Control-Allow-Methods": "POST, GET, PUT, DELETE, OPTIONS",
+		"Access-Control-Allow-Methods": "OPTIONS, POST, GET, PUT, DELETE",
 		"Access-Control-Max-Age":       "3600",
 	}
 	mergedHeaders := mergeHeaders(headers, additionalHeaders)
-
-	log.Println("********** run processOptions ************")
 
 	return events.APIGatewayProxyResponse{
 		StatusCode: http.StatusOK,
