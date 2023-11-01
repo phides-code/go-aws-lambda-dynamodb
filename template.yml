@@ -2,6 +2,17 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
 Resources:
+  PeopleCrudApi:
+    Type: AWS::Serverless::Api
+    Description: "Serverless API for CRUD operations"
+    Properties:
+      Name: "people-crud-api"
+      StageName: Prod
+      Cors:
+        AllowMethods: "'OPTIONS, POST, GET, PUT, DELETE'"
+        AllowHeaders: "'Content-Type'"
+        AllowOrigin: "'https://main.d2raxozz1helh6.amplifyapp.com'"
+        # AllowOrigin: "'https://main.d2raxozz1helh6.amplifyapp.com','http://localhost:3000'"
   PeopleFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -13,31 +24,42 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: !Ref PeopleTable
       Events:
+        PeopleOptions:
+          Type: Api
+          Properties:
+            Path: /people
+            Method: OPTIONS
+            RestApiId: !Ref PeopleCrudApi
         GetPerson:
           Type: Api
           Properties:
             Path: /people/{id}
             Method: GET
+            RestApiId: !Ref PeopleCrudApi
         GetPeople:
           Type: Api
           Properties:
             Path: /people
             Method: GET
+            RestApiId: !Ref PeopleCrudApi
         PutPerson:
           Type: Api
           Properties:
             Path: /people
             Method: POST
+            RestApiId: !Ref PeopleCrudApi
         DeletePerson:
           Type: Api
           Properties:
             Path: /people/{id}
             Method: DELETE
+            RestApiId: !Ref PeopleCrudApi
         UpdatePerson:
           Type: Api
           Properties:
             Path: /people/{id}
             Method: PUT
+            RestApiId: !Ref PeopleCrudApi
     Metadata:
       BuildMethod: makefile
 
