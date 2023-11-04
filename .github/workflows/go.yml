@@ -35,7 +35,8 @@ jobs:
 
       - name: Deploy with SAM
         run: |
-          sam deploy \
+            echo "Running sam deploy with --confirm-changeset"
+            sam deploy \
             --stack-name ${{ env.SAM_STACK_NAME }}
             --resolve-s3
             --capabilities ${{ env.SAM_CAPABILITIES }}
