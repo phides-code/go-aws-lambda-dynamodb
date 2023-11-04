@@ -14,8 +14,6 @@ jobs:
     env:
       SAM_STACK_NAME: go-lambda-dynamodb
       SAM_REGION: ca-central-1
-      SAM_S3_PREFIX: go-lambda-dynamodb
-      SAM_CONFIRM_CHANGESET: true
       SAM_CAPABILITIES: CAPABILITY_IAM
 
 
@@ -41,5 +39,6 @@ jobs:
             --stack-name ${{ env.SAM_STACK_NAME }}
             --resolve-s3
             --capabilities ${{ env.SAM_CAPABILITIES }}
+            --no-confirm-changeset
         env:
           AWS_DEFAULT_REGION: ${{ env.SAM_REGION }}  
