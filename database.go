@@ -52,7 +52,7 @@ func getItem(ctx context.Context, id string) (*Person, error) {
 		},
 	}
 
-	log.Printf("Calling Dynamodb with input: %v", input)
+	log.Printf("Calling DynamoDB with input: %v", input)
 	result, err := db.GetItem(ctx, input)
 	if err != nil {
 		return nil, err
