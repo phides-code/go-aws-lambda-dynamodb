@@ -1,0 +1,45 @@
+name: Go and SAM Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SAM_STACK_NAME: go-lambda-dynamodb
+      SAM_REGION: ca-central-1
+      SAM_S3_PREFIX: go-lambda-dynamodb
+      SAM_CONFIRM_CHANGESET: false
+      SAM_CAPABILITIES: CAPABILITY_IAM
+
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.x'  # Replace with your desired Go version
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.SAM_REGION }}
+
+      - name: Deploy with SAM
+        run: |
+          sam deploy \
+            --stack-name ${{ env.SAM_STACK_NAME }}
+            --resolve-s3
+            --capabilities ${{ env.SAM_CAPABILITIES }}
+        env:
+          AWS_DEFAULT_REGION: ${{ env.SAM_REGION }}  
