@@ -17,6 +17,12 @@ jobs:
             SAM_REGION: ca-central-1
             SAM_CAPABILITIES: CAPABILITY_IAM
         steps:
+            - name: Update apt package index and upgrade packages
+              run: |
+                  sudo apt-get update
+                  sudo apt-get upgrade -y
+              continue-on-error: true
+
             - uses: actions/checkout@v3
 
             - name: Set up Go
