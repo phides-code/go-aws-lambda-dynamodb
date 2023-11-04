@@ -16,7 +16,6 @@ jobs:
       SAM_REGION: ca-central-1
       SAM_CAPABILITIES: CAPABILITY_IAM
 
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -35,11 +34,11 @@ jobs:
 
       - name: Deploy with SAM
         run: |
-            echo "Running sam deploy with --confirm-changeset"
             sam deploy \
             --stack-name ${{ env.SAM_STACK_NAME }}
-            --resolve-s3
+            --region ${{ env.SAM_REGION }}  
             --capabilities ${{ env.SAM_CAPABILITIES }}
-            --confirm-changeset
-        env:
-          AWS_DEFAULT_REGION: ${{ env.SAM_REGION }}  
+            --resolve-s3
+            --no-confirm-changeset
+            --no-fail-on-empty-changeset
+            
