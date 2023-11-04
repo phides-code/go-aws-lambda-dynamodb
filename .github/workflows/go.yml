@@ -39,6 +39,6 @@ jobs:
             --stack-name ${{ env.SAM_STACK_NAME }}
             --resolve-s3
             --capabilities ${{ env.SAM_CAPABILITIES }}
-            --no-confirm-changeset
+            --confirm-changeset
         env:
           AWS_DEFAULT_REGION: ${{ env.SAM_REGION }}  
