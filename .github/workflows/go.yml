@@ -39,6 +39,6 @@ jobs:
             --region ${{ env.SAM_REGION }}  
             --capabilities ${{ env.SAM_CAPABILITIES }}
             --resolve-s3
-            --no-confirm-changeset
+            --confirm-changeset
             --no-fail-on-empty-changeset
             
