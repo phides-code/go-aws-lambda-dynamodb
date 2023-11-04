@@ -15,7 +15,7 @@ jobs:
       SAM_STACK_NAME: go-lambda-dynamodb
       SAM_REGION: ca-central-1
       SAM_S3_PREFIX: go-lambda-dynamodb
-      SAM_CONFIRM_CHANGESET: false
+      SAM_CONFIRM_CHANGESET: true
       SAM_CAPABILITIES: CAPABILITY_IAM
 
 
